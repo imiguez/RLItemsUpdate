@@ -8,7 +8,7 @@ import time
 chrome = webdriver.Chrome("C:\chromedriver_win32\chromedriver")
 chrome.maximize_window()
 
-#I declare the page i am looking for
+# I declare the page i am looking for (the page analyzes the RL items value)
 chrome.get("https://rl.insider.gg/es/pc/cristiano_infinite")
 
 txt = open("ItemsRocketLeague.txt", "r+")
@@ -19,7 +19,7 @@ priceUpdate = {}
 linesIndex = {}
 index = 0
 
-#Load the inventory from the txt file
+# Load the inventory from the txt file
 for line in content:
     linesIndex.__setitem__(line, index)
     if (("Plano" not in line and "cr mandar md" not in line and "Mister Monsoon" not in line and "varios colores" not in line) and ("[H]" in line)):
@@ -29,11 +29,11 @@ for line in content:
     index += 1
 
 for item in inventory:
-    #Take the search input in the page
+    # Take the search input in the page
     time.sleep(5)
     try:
         searchInput = chrome.find_element_by_xpath("//input[@id='itemSearch']")
-        #Clean it
+        # Clean it
         searchInput.clear()
     except Error:
         print(Error)
@@ -47,7 +47,7 @@ for item in inventory:
         redoItem = redoItem.replace(" color", "")
     print(redoItem)
     searchInput.send_keys(redoItem)
-    #Type what you are looking for
+    # Type what you are looking for
     searchInput.send_keys(Keys.ENTER)
     time.sleep(5)
     itemPrice = chrome.find_element_by_xpath("//h1[@id='itemSummaryPrice']").get_attribute("innerHTML")
@@ -71,15 +71,44 @@ for item in inventory:
         priceUpdate.__setitem__("[H] "+origineItem+" [W] "+str(inventory[origineItem])+"cr", "[H] "+origineItem+" [W] "+str(newPrice)+"cr")
 
 newContent = ""
-count = 0
+dsc = ""
+# count = 0
 for line in content:
     if (line.replace("\n", "") in priceUpdate.keys()):
         newContent += priceUpdate[line.replace("\n", "")]+"\n"
+        dsc += priceUpdate[line.replace("\n", "")]
     else:
-        if (count == 0):
-            line = ""
+        # if (count == 0):
+        #     line = ""
         newContent += line
-txt.close()
-txt = open("ItemsRocketLeague.txt", "w")
+    # count += 1
+
+txt = open("ItemsRocketLeague.txt", "w+")
 txt.write(newContent)
+txt.close()
+txt = open("ItemsRocketLeague.txt", "r+")
+time.sleep(5)
+# Open a new window
+chrome.execute_script("window.open();")
+time.sleep(2)
+# Move to the new window (index 1)
+chrome.switch_to.window(chrome.window_handles[1])
+# I declare the page i am looking for (the page is web discord)
+chrome.get("https://discord.com/channels/@me")
+time.sleep(2)
+# It will redirect you to the login page
+email = chrome.find_element_by_name("email")
+password = chrome.find_element_by_name("password")
+email.send_keys("@gmail.com")
+password.send_keys("")
+password.send_keys(Keys.ENTER)
+# It will redirect you to your home page
+time.sleep(2)
+# It will redirect you to an specific channel
+chrome.get("https://discord.com/channels/205282096183246848/674949331714834432")
+time.sleep(20)
+textInput = chrome.find_element_by_xpath("//div[@class='markup-2BOw-j slateTextArea-1Mkdgw fontSize16Padding-3Wk7zP']")
+time.sleep(2)
+textInput.send_keys(newContent)
+time.sleep(15)
 txt.close()

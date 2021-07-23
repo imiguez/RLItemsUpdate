@@ -1,6 +1,5 @@
-
 **
-[H] Octane color blanco titanio [W] 12000cr
+[H] Octane color blanco titanio [W] 11050cr
 [H] Plano: Sustancia Viscosa [W] cr mandar md
 [H] Plano: Cristiano (Azul cielo, Siena tostada) [W] cr mandar md
 ---------------- Calcomanias ----------------
@@ -12,7 +11,7 @@
 [H] Compuesto C color morado [W] 40cr
 [H] Octane: Piel de Serpiente [W] 60cr
 [H] Octane: RLCS X color morado [W] 250cr
-[H] Octane: RLCS color siena tostada [W] 250cr
+[H] Octane: RLCS color siena tostada [W] 125cr
 [H] Dominus: RLCS x [W] 60cr
 ---------------- Festejo de Gol ----------------
 [H] Hora de fiesta [W] 200cr
@@ -35,5 +34,5 @@
 [H] Helios Lima [W] 200cr
 [H] Helios Azafran [W] 100cr
 [H] Llama Toon (varios colores) [W] cr mandar md
+**
 
-NEGOCIABLE, MANDEN AL MD CUALQUIER COSA**
