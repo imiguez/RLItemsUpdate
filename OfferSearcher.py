@@ -2,15 +2,15 @@ from copy import Error
 import unittest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 import time
 
 # Create a Chrome window
-chrome = webdriver.Chrome("C:\chromedriver_win32\chromedriver")
+chrome = webdriver.Chrome("C:\chromedriver")
 chrome.maximize_window()
 
 # I declare the page i am looking for (the page analyzes the RL items value)
 chrome.get("https://rl.insider.gg/es/pc/cristiano_infinite")
-
 txt = open("ItemsRocketLeague.txt", "r+")
 content = txt.readlines()
 
@@ -18,6 +18,7 @@ inventory = {}
 priceUpdate = {}
 linesIndex = {}
 index = 0
+"""
 
 # Load the inventory from the txt file
 for line in content:
@@ -70,6 +71,7 @@ for item in inventory:
         # priceUpdate [vieja linea, nueva linea]  
         priceUpdate.__setitem__("[H] "+origineItem+" [W] "+str(inventory[origineItem])+"cr", "[H] "+origineItem+" [W] "+str(newPrice)+"cr")
 
+"""
 newContent = ""
 dsc = ""
 # count = 0
@@ -87,7 +89,7 @@ txt = open("ItemsRocketLeague.txt", "w+")
 txt.write(newContent)
 txt.close()
 txt = open("ItemsRocketLeague.txt", "r+")
-time.sleep(5)
+time.sleep(2)
 # Open a new window
 chrome.execute_script("window.open();")
 time.sleep(2)
@@ -105,10 +107,30 @@ password.send_keys(Keys.ENTER)
 # It will redirect you to your home page
 time.sleep(2)
 # It will redirect you to an specific channel
-chrome.get("https://discord.com/channels/205282096183246848/674949331714834432")
-time.sleep(20)
+chrome.get("https://discord.com/channels/834206110826889270/834206111480545302")
+time.sleep(10)
 textInput = chrome.find_element_by_xpath("//div[@class='markup-2BOw-j slateTextArea-1Mkdgw fontSize16Padding-3Wk7zP']")
 time.sleep(2)
-textInput.send_keys(newContent)
+    
+newContent = newContent.split("\n")
+action_key_down_shift = ActionChains(chrome).key_down(Keys.SHIFT)
+action_key_up_shift = ActionChains(chrome).key_up(Keys.SHIFT)
+enter_down = ActionChains(chrome).key_down(Keys.ENTER)
+enter_up = ActionChains(chrome).key_up(Keys.ENTER)
+for line in newContent:
+    textInput.send_keys(line)
+
+    endtime = time.time() + 1.0
+
+    while True:
+        action_key_down_shift.perform()
+
+        if time.time() > endtime:
+            enter_down.perform()
+            enter_up.perform()
+            action_key_up_shift.perform()
+            break
+
+
 time.sleep(15)
 txt.close()

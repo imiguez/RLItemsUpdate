@@ -1,5 +1,5 @@
 **
-[H] Octane color blanco titanio [W] 11050cr
+[H] Octane color blanco titanio [W] 10950cr
 [H] Plano: Sustancia Viscosa [W] cr mandar md
 [H] Plano: Cristiano (Azul cielo, Siena tostada) [W] cr mandar md
 ---------------- Calcomanias ----------------
@@ -32,7 +32,7 @@
 [H] Fuegos Artificiales (Acelerador) [W] 30cr
 [H] Helios [W] 50cr
 [H] Helios Lima [W] 200cr
-[H] Helios Azafran [W] 100cr
+[H] Helios Azafran [W] 200cr
 [H] Llama Toon (varios colores) [W] cr mandar md
 **
 
