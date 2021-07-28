@@ -1,5 +1,4 @@
 **
-[H] Octane color blanco titanio [W] 10950cr
 [H] Plano: Sustancia Viscosa [W] cr mandar md
 [H] Plano: Cristiano (Azul cielo, Siena tostada) [W] cr mandar md
 ---------------- Calcomanias ----------------
@@ -8,7 +7,6 @@
 [H] Fennec: Yorebands color gris [W] 130cr
 [H] Fennec: Yorebands color morado [W] 200cr
 [H] Fennec: RLCS X [W] 50cr
-[H] Compuesto C color morado [W] 40cr
 [H] Octane: Piel de Serpiente [W] 60cr
 [H] Octane: RLCS X color morado [W] 250cr
 [H] Octane: RLCS color siena tostada [W] 125cr
@@ -16,8 +14,7 @@
 ---------------- Festejo de Gol ----------------
 [H] Hora de fiesta [W] 200cr
 [H] Mister Monsoon color morado [W] 60cr
-[H] Espectaculo de Luces color lima [W] 150cr
-[H] Riser (varios colores) [W] 40cr
+[H] Light Show color lima [W] 30cr[H] Riser (varios colores) [W] 40cr
 ---------------- Ruedas ----------------
 [H] Cristiano [W] 140cr
 [H] OEM [Muy Raro] color blanco titanio [W] 200cr
@@ -32,7 +29,6 @@
 [H] Fuegos Artificiales (Acelerador) [W] 30cr
 [H] Helios [W] 50cr
 [H] Helios Lima [W] 200cr
-[H] Helios Azafran [W] 200cr
+[H] Helios Azafran [W] 125cr
 [H] Llama Toon (varios colores) [W] cr mandar md
 **
-

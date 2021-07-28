@@ -6,7 +6,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 import time
 
 # Create a Chrome window
-chrome = webdriver.Chrome("C:\chromedriver")
+chrome = webdriver.Chrome("C:\chromedriver_win32\chromedriver")
 chrome.maximize_window()
 
 # I declare the page i am looking for (the page analyzes the RL items value)
@@ -18,24 +18,23 @@ inventory = {}
 priceUpdate = {}
 linesIndex = {}
 index = 0
-"""
 
 # Load the inventory from the txt file
 for line in content:
     linesIndex.__setitem__(line, index)
-    if (("Plano" not in line and "cr mandar md" not in line and "Mister Monsoon" not in line and "varios colores" not in line) and ("[H]" in line)):
+    if (("Nacarado mate" not in line and "cr mandar md" not in line and "Mister Monsoon" not in line and "varios colores" not in line) and ("[H]" in line)):
         line = line.replace("[H] ", "").split(" [W] ")
         inventory.__setitem__(line[0], int(line[1].replace("cr\n", "")))
         print(line[0] +" => "+ (line[1].replace("cr\n", "")))
     index += 1
 
+txt.close() # Close the txt file
+
 for item in inventory:
-    # Take the search input in the page
-    time.sleep(5)
+    time.sleep(2) # Take the search input in the page
     try:
         searchInput = chrome.find_element_by_xpath("//input[@id='itemSearch']")
-        # Clean it
-        searchInput.clear()
+        searchInput.clear() # Clean it
     except Error:
         print(Error)
 
@@ -47,10 +46,9 @@ for item in inventory:
     if ("color" in itemWords):
         redoItem = redoItem.replace(" color", "")
     print(redoItem)
-    searchInput.send_keys(redoItem)
-    # Type what you are looking for
+    searchInput.send_keys(redoItem) # Type what you are looking for
     searchInput.send_keys(Keys.ENTER)
-    time.sleep(5)
+    time.sleep(2)
     itemPrice = chrome.find_element_by_xpath("//h1[@id='itemSummaryPrice']").get_attribute("innerHTML")
     itemPrice = itemPrice.split(" - ")
     minPrice = itemPrice[0]
@@ -71,33 +69,25 @@ for item in inventory:
         # priceUpdate [vieja linea, nueva linea]  
         priceUpdate.__setitem__("[H] "+origineItem+" [W] "+str(inventory[origineItem])+"cr", "[H] "+origineItem+" [W] "+str(newPrice)+"cr")
 
-"""
 newContent = ""
-dsc = ""
-# count = 0
 for line in content:
     if (line.replace("\n", "") in priceUpdate.keys()):
         newContent += priceUpdate[line.replace("\n", "")]+"\n"
-        dsc += priceUpdate[line.replace("\n", "")]
     else:
-        # if (count == 0):
-        #     line = ""
         newContent += line
-    # count += 1
 
 txt = open("ItemsRocketLeague.txt", "w+")
 txt.write(newContent)
 txt.close()
 txt = open("ItemsRocketLeague.txt", "r+")
+
+#chrome.execute_script("window.open();") # Open a new window
+
 time.sleep(2)
-# Open a new window
-chrome.execute_script("window.open();")
+#chrome.switch_to.window(chrome.window_handles[1]) # Move to the new window (index 1)
+chrome.get("https://discord.com/channels/@me") # I declare the page i am looking for (the page is web discord)
 time.sleep(2)
-# Move to the new window (index 1)
-chrome.switch_to.window(chrome.window_handles[1])
-# I declare the page i am looking for (the page is web discord)
-chrome.get("https://discord.com/channels/@me")
-time.sleep(2)
+
 # It will redirect you to the login page
 email = chrome.find_element_by_name("email")
 password = chrome.find_element_by_name("password")
@@ -106,31 +96,30 @@ password.send_keys("")
 password.send_keys(Keys.ENTER)
 # It will redirect you to your home page
 time.sleep(2)
-# It will redirect you to an specific channel
-chrome.get("https://discord.com/channels/834206110826889270/834206111480545302")
-time.sleep(10)
+
+chrome.get("https://discord.com/channels/205282096183246848/674949331714834432") # It will redirect you to an specific channel
+time.sleep(8)
 textInput = chrome.find_element_by_xpath("//div[@class='markup-2BOw-j slateTextArea-1Mkdgw fontSize16Padding-3Wk7zP']")
 time.sleep(2)
-    
-newContent = newContent.split("\n")
-action_key_down_shift = ActionChains(chrome).key_down(Keys.SHIFT)
-action_key_up_shift = ActionChains(chrome).key_up(Keys.SHIFT)
-enter_down = ActionChains(chrome).key_down(Keys.ENTER)
-enter_up = ActionChains(chrome).key_up(Keys.ENTER)
-for line in newContent:
-    textInput.send_keys(line)
-
-    endtime = time.time() + 1.0
-
-    while True:
-        action_key_down_shift.perform()
-
-        if time.time() > endtime:
-            enter_down.perform()
-            enter_up.perform()
-            action_key_up_shift.perform()
-            break
-
-
-time.sleep(15)
 txt.close()
+
+newContent = newContent.split("\n")
+
+while True:
+    action_key_down_shift = ActionChains(chrome).key_down(Keys.SHIFT)
+    action_key_up_shift = ActionChains(chrome).key_up(Keys.SHIFT)
+    enter_down = ActionChains(chrome).key_down(Keys.ENTER)
+    enter_up = ActionChains(chrome).key_up(Keys.ENTER)
+
+    for line in newContent:
+        textInput.send_keys(line)
+        endtime = time.time() + 0.1
+        while True:
+            action_key_down_shift.perform()
+            if time.time() > endtime:
+                enter_down.perform()
+                enter_up.perform()
+                action_key_up_shift.perform()
+                break
+    textInput.send_keys(Keys.ENTER)
+    time.sleep(660)
